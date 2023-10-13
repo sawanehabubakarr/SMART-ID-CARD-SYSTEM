@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <title>Student Information Form</title>
+    <script>
+        function toggleDepartmentField() {
+            var programField = document.getElementById('program');
+            var departmentField = document.getElementById('departmentField');
+            var departmentField2 = document.getElementById('departmentField2');
+            var departmentField3 = document.getElementById('departmentField3');
+            var departmentField4 = document.getElementById('departmentField4');
+            
+
+            if (programField.value === 'Masters') {
+                departmentField.style.display = 'block';
+            } else {
+                departmentField.style.display = 'none';
+            }
+
+            if (programField.value === 'Degree') {
+                departmentField2.style.display = 'block';
+            } else {
+                departmentField2.style.display = 'none';
+            }
+
+            if (programField.value === 'Diploma') {
+                departmentField3.style.display = 'block';
+            } else {
+                departmentField3.style.display = 'none';
+            }
+
+            if (programField.value === 'Certificate') {
+                departmentField4.style.display = 'block';
+            } else {
+                departmentField4.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Student Information Form</h1>
+    <form>
+<!-- current year Field -->
+        <label for="currentYear">What's your current year?</label>
+        <select id="currentYear" name="currentYear">
+            <option value="">Please Select</option>
+            <option value="1">Year 1</option>
+            <option value="2">Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4">Year 4</option>
+        </select><br>
+<!-- ID Number Field -->
+        <label for="idNumber">ID Number:</label>
+        <input type="number" id="idNumber" name="idNumber" data-defaultvalue="" value="" placeholder="e.g., 8527" data-component="number" required><br>
+<!-- Take Photo Field -->
+        <label for="photo">Take Photo:</label>
+        <input type="file" id="photo" accept="image/*;capture=camera" name="photo" required><br>
+<!-- Full Name Field -->
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required><br>
+<!-- Program Field -->
+        <label for="program">Program:</label>
+        <select id="program" name="program" onchange="toggleDepartmentField()">
+          <option value="">Please Select</option>
+          <option value="Masters">Masters</option>
+          <option value="Degree">Degree</option>
+          <option value="Diploma">Diploma</option>
+          <option value="Certificate">Certificate</option>
+        </select><br>
+
+<!-- Department Fields (Initially hidden) -->
+        <div id="departmentField" style="display: none;">
+            <label for="department">Department:</label>
+            <select id="department" name="department">
+              <option value="">Please Select</option>
+              <option value="LLM Law">LLM Law</option>
+              <option value="M.A Sustainable Development">M.A Sustainable Development</option>
+              <option value="M.Ed. Education">M.Ed. Education</option>
+              <option value="M.Ph Public Health">M.Ph Public Health</option>
+              <option value="MBA Entrepreneurship">MBA Entrepreneurship</option>
+              <option value="MBA Finance">MBA Finance</option>
+              <option value="MBA HRM">MBA HRM</option>
+              <option value="Paralegal">Paralegal</option>
+              <option value="PG Dip. Education">PG Dip. Education</option>
+              <!-- Add more department options here -->
+            </select><br>
+        </div>
+
+        <div id="departmentField2" style="display: none;">
+          <label for="department">Department:</label>
+          <select id="department2" name="department">
+            <option value="">Please Select</option>
+            <option value="B.A Development studies">B.A Development studies</option>
+            <option value="B.A Mass Communication">B.A Mass Communication</option>
+            <option value="B.A Political Sci. &amp; Int. Relations">B.A Political Sci. &amp; Int. Relations</option>
+            <option value="B.A Public Admin &amp; Mgt.">B.A Public Admin &amp; Mgt.</option>
+            <option value="B.Ed. Education">B.Ed. Education</option>
+            <option value="B.Sc Social Work">B.Sc Social Work</option>
+            <option value="B.Sc. Accounting &amp; Finance">B.Sc. Accounting &amp; Finance</option>
+            <option value="B.Sc. Agric &amp; Food Sciences">B.Sc. Agric &amp; Food Sciences</option>
+            <option value="B.Sc. Agric &amp; Food Technology">B.Sc. Agric &amp; Food Technology</option>
+            <option value="B.Sc. Banking &amp; Finance">B.Sc. Banking &amp; Finance</option>
+            <option value="B.Sc. Business Administration &amp; Mgt.">B.Sc. Business Administration &amp; Mgt.</option>
+            <option value="B.Sc. Clinical Psychology">B.Sc. Clinical Psychology</option>
+            <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
+            <option value="B.Sc. Economics">B.Sc. Economics</option>
+            <option value="B.Sc. Human Resource Mgt.">B.Sc. Human Resource Mgt.</option>
+            <option value="B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.">B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+            <option value="B.Sc. Public Health">B.Sc. Public Health</option>
+            <option value="LLB Law">LLB Law</option>
+          <!-- Add more department options here -->
+          </select><br>
+        </div>
+
+        <div id="departmentField3" style="display: none;">
+          <label for="department">Department:</label>
+          <select id="department3" name="department">
+            <option value="">Please Select</option>
+            <option value="Dip. Accounting &amp; Finance">Dip. Accounting &amp; Finance</option>
+            <option value="Dip. Agric &amp; Food Sciences">Dip. Agric &amp; Food Sciences</option>
+            <option value="Dip. Agric &amp; Food Technology">Dip. Agric &amp; Food Technology</option>
+            <option value="Dip. Banking &amp; Finance">Dip. Banking &amp; Finance</option>
+            <option value="Dip. Business Administration &amp; Mgt.">Dip. Business Administration &amp; Mgt.</option>
+            <option value="Dip. Clinical Psychology">Dip. Clinical Psychology</option>
+            <option value="Dip. Computer Science">Dip. Computer Science</option>
+            <option value="Dip. Development studies">Dip. Development studies</option>
+            <option value="Dip. Economics">Dip. Economics</option>
+            <option value="Dip. Human Resource Mgt.">Dip. Human Resource Mgt.</option>
+            <option value="Dip. Mass Communication">Dip. Mass Communication</option>
+            <option value="Dip. Political Sci. &amp; Int. Relations">Dip. Political Sci. &amp; Int. Relations</option>
+            <option value="Dip. Pro., Logistics, &amp; Supply Ch. Mgt.">Dip. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+            <option value="Dip. Public Admin &amp; Mgt.">Dip. Public Admin &amp; Mgt.</option>
+            <option value="Dip. Public Health">Dip. Public Health</option>
+            <option value="Dip. Social Work">Dip. Social Work</option>
+            <!-- Add more department options here -->
+          </select><br>
+        </div>
+
+        <div id="departmentField4" style="display: none;">
+          <label for="department">Department:</label>
+          <select id="department4" name="department">
+            <option value="">Please Select</option>
+            <option value="Cert. Accounting &amp; Finance">Cert. Accounting &amp; Finance</option>
+            <option value="Cert. Agric &amp; Food Sciences">Cert. Agric &amp; Food Sciences</option>
+            <option value="Cert. Agric &amp; Food Technology">Cert. Agric &amp; Food Technology</option>
+            <option value="Cert. Banking &amp; Finance">Cert. Banking &amp; Finance</option>
+            <option value="Cert. Business Administration &amp; Mgt.">Cert. Business Administration &amp; Mgt.</option>
+            <option value="Cert. Clinical Psychology">Cert. Clinical Psychology</option>
+            <option value="Cert. Computer Science">Cert. Computer Science</option>
+            <option value="Cert. Development studies">Cert. Development studies</option>
+            <option value="Cert. Economics">Cert. Economics</option>
+            <option value="Cert. Human Resource Mgt.">Cert. Human Resource Mgt.</option>
+            <option value="Cert. Mass Communication">Cert. Mass Communication</option>
+            <option value="Cert. Political Sci. &amp; Int. Relations">Cert. Political Sci. &amp; Int. Relations</option>
+            <option value="Cert. Pro., Logistics, &amp; Supply Ch. Mgt.">Cert. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+            <option value="Cert. Public Admin &amp; Mgt.">Cert. Public Admin &amp; Mgt.</option>
+            <option value="Cert. Public Health">Cert. Public Health</option>
+            <option value="Cert. Social Work">Cert. Social Work</option>
+          <!-- Add more department options here -->
+          </select><br>
+        </div>
+
+
+
+<!-- Faculty Field -->
+        <label for="faculty">Faculty:</label>
+        <select id="faculty" name="faculty">
+            <option value="">Please Select</option>
+            <option value="Agriculture &amp; Food Sciences">Agriculture &amp; Food Sciences</option>
+            <option value="Commerce &amp; Management">Commerce &amp; Management</option>
+            <option value="Education">Education</option>
+            <option value="Mass Comm. &amp; Computer Sci.">Mass Comm. &amp; Computer Sci.</option>
+            <option value="Nursing &amp; Allied Health Sciences">Nursing &amp; Allied Health Sciences</option>
+            <option value="Post Graduate Studies">Post Graduate Studies</option>
+            <option value="Law &amp; Humanity">Law &amp; Humanity</option>
+            <option value="Social Science">Social Science</option>     
+        </select><br>
+<!-- Phone Number Field -->
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+<!-- Email Field -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+<!-- campus Field -->
+        <label>Choose your campus:</label><br>
+        <input type="radio" id="campus1" name="campus" value="Yoni" required>
+        <label for="Yoni">Yoni</label><br>
+
+        <input type="radio" id="campus2" name="campus" value="Fatima">
+        <label for="Fatima">Fatima</label><br>
+
+        <input type="radio" id="campus3" name="campus" value="St. John of God">
+        <label for="St. John of God">St. John of God</label><br>
+
+        <br>
+        <input id="submitBtn" type="submit" value="Submit">
+    </form>
+    
+
+<section class="cardbody">
+    <div id="capture" class="id-card">
+      <div class="student-photo"></div>
+      <!--/* QR Code placeholder */-->
+      <div id="qrcode" style="width:130px; height:100px; margin-top:215px;margin-left: 11px;"></div>
+
+
+      <div class="info">
+          <p id="cfaculty">Mass Comm. & Computer Sci.</p>
+          <p id="ccourse">B.sc. Computer Science</p>
+          <p id="ccampus">Yoni</p>
+      </div>
+      <div class="info2">
+          <p id="adate">10/2022</p>
+          <p id="edate">08/2026</p>
+      </div>
+      <div class="info3">
+          <p id="cname">Abubakarr Sawaneh</p>
+      </div>
+      <div class="info4">
+          <p id="cid-num">8527</p>
+      </div>
+
+  </div>
+  <style>
+    /* Center the card container */
+    .cardbody {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    /* ID card container */
+    .id-card {
+        width: 600px;
+        height: 360px;
+        background-image: url('CARD.png'); /* Relative path to your image */
+        background-size: cover;
+        border: 2px solid #000;
+        border-radius: 10px;
+        padding: 20px;
+        position: relative;
+    }
+
+    /* Student photo placeholder */
+    .student-photo {
+        width: 130px;
+        height: 130px;
+        border: 2px solid #000;
+        border-radius: 50%;
+        background-color: #ccc;
+        background-image: url('ME2.jpg');
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        top: 42px;
+        left: 34px;
+    }
+
+    /* Text placeholders */
+    .info {
+        position: absolute;
+        top: 157px;
+        left: 315px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .info2 {
+        font-weight: bold;
+        position: absolute;
+        top: 321px;
+        left: 390px;
+        font-size: 20px;
+    }
+    .info3 {
+        font-weight: bold;
+        position: absolute;
+        top: 180px;
+        left: 20px;
+        font-size: 20px;
+    }
+    .info4 {
+        font-weight: bold;
+        position: absolute;
+        top: 200px;
+        left: 145px;
+        font-size: 20px;
+    }
+    .info p,.info2 p, .info3 p, .info4 p {
+        margin: 0;
+    }
+
+</style>
+<script>
+    // Add an event listener to the form for the submit event
+document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the values from the form fields
+    const fullName = document.getElementById("fullName").value;
+    const faculty = document.getElementById("faculty").value;
+    const program = document.getElementById("program").value;
+    let department;
+    const facultyc = document.getElementById("currentYear").value;
+    const programc = document.getElementById("program").value;
+
+    var date1;
+    var date2;
+
+    // Determine the end date based on the selected year and program
+    switch (facultyc) {
+        case "1":
+            date1 = "10/2023";
+            break;
+        case "2":
+            date1 = "10/2022";
+            break;
+        case "3":
+            date1 = "10/2021";
+            break;
+        case "4":
+            date1 = "10/2020";
+            break;
+    }
+
+    // Determine the end date based on the selected program
+    switch (programc) {
+        case "Masters":
+            date2 = (parseInt(date1.split('/')[1]) + 3).toString(); // Masters is 3 years
+            break;
+        case "Degree":
+            date2 = (parseInt(date1.split('/')[1]) + 4).toString(); // Degree is 4 years
+            break;
+        case "Diploma":
+            date2 = (parseInt(date1.split('/')[1]) + 2).toString(); // Diploma is 2 years
+            break;
+        case "Certificate":
+            date2 = (parseInt(date1.split('/')[1]) + 1).toString(); // Certificate is 1 year
+            break;
+    }
+
+    document.getElementById("adate").innerHTML = date1;
+    document.getElementById("edate").innerHTML = "08/" + date2;
+
+    // Determine the department based on the selected program
+    if (program === "Masters") {
+        department = document.getElementById("department").value;
+    } else if (program === "Degree") {
+        department = document.getElementById("department2").value;
+    } else if (program === "Diploma") {
+        department = document.getElementById("department3").value;
+    } else if (program === "Certificate") {
+        department = document.getElementById("department4").value;
+    }
+
+    const idNumber = document.getElementById("idNumber").value;
+    const campus = document.querySelector('input[name="campus"]:checked').value; // Get the selected campus
+
+    // Update the ID card elements with the collected values
+    document.getElementById("cname").innerHTML = fullName;
+    document.getElementById("cfaculty").innerHTML = faculty;
+    document.getElementById("ccourse").innerHTML = department;
+    document.getElementById("cid-num").innerHTML = idNumber;
+
+    // Update the campus
+    document.getElementById("ccampus").innerHTML = campus;
+
+    // Change the image on the ID card
+    const photoInput = document.getElementById("photo");
+    if (photoInput.files.length > 0) {
+        const file = photoInput.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        document.querySelector(".student-photo").style.backgroundImage = `url(${imageUrl})`;
+    }
+});
+
+
+</script>
+</section>
+
+
+
+<!-- QR Code Script -->
+<script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 130,
+        height: 130
+    });
+
+    function makeCode() {
+    var Nme = document.getElementById("fullName").value;
+    var IDe = document.getElementById("idNumber").value;
+    var Eml = document.getElementById("email").value;
+    var Phne = document.getElementById("phoneNumber").value;
+    var program = document.getElementById("program").value;
+    var department = "";
+
+    if (program === "Masters") {
+        department = document.getElementById("department").value;
+    } else if (program === "Degree") {
+        department = document.getElementById("department2").value;
+    } else if (program === "Diploma") {
+        department = document.getElementById("department3").value;
+    } else if (program === "Certificate") {
+        department = document.getElementById("department4").value;
+    }
+
+    var elText = Nme + "\n" + IDe + "\n" + department + "\n" + Eml + "\n" + Phne;
+
+    qrcode.makeCode(elText);
+}
+
+    makeCode();
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+    makeCode();
+});
+
+
+    document.getElementById("fullName").addEventListener("blur", function () {
+        makeCode();
+    });
+
+    document.getElementById("fullName").addEventListener("keydown", function (e) {
+        if (e.keyCode == 13) {
+            makeCode();
+        }
+    });
+</script>
+
+
+
+<!-- ScreenShot Code Script -->
+<div id="imageModal">
+    <img id="imageModalContent">
+    <a id="downloadLink" download="capture.png">Download</a>
+</div>
+
+<script>
+    document.getElementById("submitBtn").addEventListener("click", function() {
+        const idNumber = document.getElementById("idNumber").value;
+        
+        html2canvas(document.querySelector("#capture")).then(canvas => {
+            // Show the captured image in the lightbox
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("imageModalContent");
+            const downloadLink = document.getElementById("downloadLink");
+            const fileName = `${idNumber}.png`; // Unique filename
+            modal.style.display = "block";
+            modalImg.src = canvas.toDataURL();
+            downloadLink.href = canvas.toDataURL();
+            downloadLink.style.display = "block";
+            downloadLink.setAttribute("download", fileName); // Set the download filename
+
+            // Automatically trigger the download
+            downloadLink.click();
+        });
+    });
+
+    // Close the lightbox when clicking on it
+    document.getElementById("imageModal").addEventListener("click", function() {
+        this.style.display = "none";
+    });
+</script>
+<script>
+gapi.load('client', start);
+</body>
+</html>
