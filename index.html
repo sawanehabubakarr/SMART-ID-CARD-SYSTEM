@@ -305,6 +305,29 @@ document.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     // Get the values from the form fields
+    const idNumber = document.getElementById("idNumber").value;
+    const currentYear = document.getElementById("currentYear").value;
+
+    // Calculate the year of admission based on the selected current year
+    const admissionYear = new Date().getFullYear() - parseInt(currentYear);
+
+    // Generate the email in the format "admissionYearIDNumber@unimak.edu.sl"
+    const email = `${admissionYear}${idNumber}@unimak.edu.sl`;
+
+    // Update the email field with the generated email
+    document.getElementById("email").value = email;
+
+    // Rest of your code...
+    // ...
+});
+
+</script> 
+<script>
+    // Add an event listener to the form for the submit event
+document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the values from the form fields
     const fullName = document.getElementById("fullName").value;
     const faculty = document.getElementById("faculty").value;
     const program = document.getElementById("program").value;
