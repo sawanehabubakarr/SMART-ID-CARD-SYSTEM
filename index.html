@@ -554,10 +554,7 @@ document.querySelector("form").addEventListener("submit", function (event) {
     document.getElementById("submitBtn").addEventListener("click", function() {
         const idNumber = document.getElementById("idNumber").value;
         
-        html2canvas(document.querySelector("#capture"), {
-            scale: 2, // Adjust the scale to capture a higher resolution image (e.g., 2x)
-            useCORS: true, // Enable Cross-Origin Resource Sharing if necessary
-        }).then(canvas => {
+        html2canvas(document.querySelector("#capture")).then(canvas => {
             // Show the captured image in the lightbox
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("imageModalContent");
@@ -576,7 +573,7 @@ document.querySelector("form").addEventListener("submit", function (event) {
 
     // Close the lightbox when clicking on it
     document.getElementById("imageModal").addEventListener("click", function() {
-        this.style display = "none";
+        this.style.display = "none";
     });
 </script>
 
