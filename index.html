@@ -299,29 +299,112 @@
     }
 
 </style>
+<!-- email generation script -->
 <script>
-    // Add an event listener to the form for the submit event
-document.querySelector("form").addEventListener("submit", function (event) {
+    // Add an event listener to the form for the fullname event
+    document.getElementById("faculty").addEventListener("blur", function () {
     event.preventDefault(); // Prevent the default form submission
+
+    // Mapping of department abbreviations to full department names
+    const departmentAbbreviations = {
+    "LLM Law": "law",
+    "M.A Sustainable Development": "sustdev",
+    "M.Ed. Education": "edu",
+    "M.Ph Public Health": "ph",
+    "MBA Entrepreneurship": "mbae",
+    "MBA Finance": "baf",
+    "MBA HRM": "hrm",
+    "Paralegal": "para",
+    "PG Dip. Education": "edu",
+    "B.A Development studies": "dev",
+    "B.A Mass Communication": "masscom",
+    "B.A Political Sci. & Int. Relations": "posir",
+    "B.A Public Admin & Mgt.": "pam",
+    "B.Ed. Education": "edu",
+    "B.Sc Social Work": "sw",
+    "B.Sc. Accounting & Finance": "acf",
+    "B.Sc. Agric & Food Sciences": "afs",
+    "B.Sc. Agric & Food Technology": "aft",
+    "B.Sc. Banking & Finance": "bsbaf",
+    "B.Sc. Business Administration & Mgt.": "bsbam",
+    "B.Sc. Clinical Psychology": "bscp",
+    "B.Sc. Computer Science": "commsu",
+    "B.Sc. Economics": "ec",
+    "B.Sc. Human Resource Mgt.": "hrm",
+    "B.Sc. Pro., Logistics, & Supply Ch. Mgt.": "plscm",
+    "B.Sc. Public Health": "bsph",
+    "LLB Law": "law",
+    "Dip. Accounting & Finance": "dipaf",
+    "Dip. Agric & Food Sciences": "dipafs",
+    "Dip. Agric & Food Technology": "dipaft",
+    "Dip. Banking & Finance": "dipbaf",
+    "Dip. Business Administration & Mgt.": "dipbam",
+    "Dip. Clinical Psychology": "dipcp",
+    "Dip. Computer Science": "dipcs",
+    "Dip. Development studies": "dipds",
+    "Dip. Economics": "dipec",
+    "Dip. Human Resource Mgt.": "hrm",
+    "Dip. Mass Communication": "dipmc",
+    "Dip. Political Sci. & Int. Relations": "posir",
+    "Dip. Pro., Logistics, & Supply Ch. Mgt.": "plscm",
+    "Dip. Public Admin & Mgt.": "pam",
+    "Dip. Public Health": "ph",
+    "Dip. Social Work": "sw",
+    "Cert. Accounting & Finance": "certaf",
+    "Cert. Agric & Food Sciences": "certafs",
+    "Cert. Agric & Food Technology": "aft",
+    "Cert. Banking & Finance": "baf",
+    "Cert. Business Administration & Mgt.": "certbam",
+    "Cert. Clinical Psychology": "cp",
+    "Cert. Computer Science": "commsu",
+    "Cert. Development studies": "ds",
+    "Cert. Economics": "ec",
+    "Cert. Human Resource Mgt.": "hrm",
+    "Cert. Mass Communication": "masscom",
+    "Cert. Political Sci. & Int. Relations": "posir",
+    "Cert. Pro., Logistics, & Supply Ch. Mgt.": "plscm",
+    "Cert. Public Admin & Mgt.": "pam",
+    "Cert. Public Health": "ph",
+    "Cert. Social Work": "sw"
+};
+
+
 
     // Get the values from the form fields
     const idNumber = document.getElementById("idNumber").value;
     const currentYear = document.getElementById("currentYear").value;
+    const program = document.getElementById("program").value;
+    let department = "";
+
+    if (program === "Masters") {
+        department = document.getElementById("department").value;
+    } else if (program === "Degree") {
+        department = document.getElementById("department2").value;
+    } else if (program === "Diploma") {
+        department = document.getElementById("department3").value;
+    } else if (program === "Certificate") {
+        department = document.getElementById("department4").value;
+    }
+
+
 
     // Calculate the year of admission based on the selected current year
     const admissionYear = new Date().getFullYear() - parseInt(currentYear);
 
+    // Abbreviate the department name based on the mapping
+    const departmentAbbreviation = departmentAbbreviations[department] || "";
+
     // Generate the email in the format "admissionYearIDNumber@unimak.edu.sl"
-    const email = `${admissionYear}${idNumber}@unimak.edu.sl`;
+    const email = `${admissionYear}${departmentAbbreviation}${idNumber}@unimak.edu.sl`;
 
     // Update the email field with the generated email
     document.getElementById("email").value = email;
 
-    // Rest of your code...
-    // ...
 });
 
 </script> 
+
+
 <script>
     // Add an event listener to the form for the submit event
 document.querySelector("form").addEventListener("submit", function (event) {
@@ -493,7 +576,6 @@ document.querySelector("form").addEventListener("submit", function (event) {
         this.style.display = "none";
     });
 </script>
-<script>
-gapi.load('client', start);
+
 </body>
 </html>
