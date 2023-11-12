@@ -392,14 +392,31 @@
 
 
     // Calculate the year of admission based on the selected current year
-    const admissionYear = new Date().getFullYear() - parseInt(currentYear);
+    const cYear = document.getElementById("currentYear").value;
+    
+    var admissionYear;
+
+    // Determine the end date based on the selected year and program
+    switch (cYear) {
+        case "1":
+            admissionYear = "2023";
+            break;
+        case "2":
+            admissionYear   = "2022";
+            break;
+        case "3":
+            admissionYear = "2021";
+            break;
+        case "4":
+            admissionYear = "2020";
+            break;
+    }
 
     // Abbreviate the department name based on the mapping
     const departmentAbbreviation = departmentAbbreviations[department] || "";
 
-    // Generate the email in the format "admissionYearIDNumber@unimak.edu.sl"
+    // Generate the email in the format "admissionYeardepartmentAbbreviationIDNumber@unimak.edu.sl"
     const email = `${admissionYear}${departmentAbbreviation}${idNumber}@unimak.edu.sl`;
-
     // Update the email field with the generated email
     document.getElementById("email").value = email;
 
