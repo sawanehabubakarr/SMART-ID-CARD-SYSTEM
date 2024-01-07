@@ -4,13 +4,13 @@ form {
   margin: 0 auto;
 }
 
-/* Style the form heading */
+
 h1 {
   text-align: center;
   color: #333;
 }
 
-/* Style form labels */
+
 label {
   display: block;
   margin-top: 10px;
@@ -78,10 +78,125 @@ br {
   margin-bottom: 10px;
 }
 
-/* Style the hidden department field */
+
 #departmentField {
   display: none;
 }
 
-/* Add any other specific styles as needed for your project */
 
+    /* Center the card container */
+    .cardbody {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    /* ID card container */
+    .id-card {
+        width: 600px;
+        height: 360px;
+        background-image: url('CARD.png'); /* Relative path to your image */
+        background-size: cover;
+        border: 2px solid #000;
+        border-radius: 10px;
+        padding: 20px;
+        position: relative;
+    }
+
+    /* Student photo placeholder */
+    .student-photo {
+        width: 130px;
+        height: 130px;
+        border: 2px solid #000;
+        border-radius: 50%;
+        background-color: #ccc;
+        background-image: url('ME2.jpg');
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        top: 42px;
+        left: 34px;
+    }
+
+    /* Text placeholders */
+    .info {
+        position: absolute;
+        top: 157px;
+        left: 315px;
+        font-size: 18.95px;
+        font-weight: bold;
+    }
+    .info2 {
+        font-weight: bold;
+        position: absolute;
+        top: 321px;
+        left: 390px;
+        font-size: 20px;
+    }
+    .info3 {
+        font-weight: bold;
+        position: absolute;
+        top: 180px;
+        left: 20px;
+        font-size: 20px;
+    }
+    .info4 {
+        font-weight: bold;
+        position: absolute;
+        top: 200px;
+        left: 145px;
+        font-size: 20px;
+    }
+    .info p,.info2 p, .info3 p, .info4 p {
+        margin: 0;
+    }
+
+
+@media screen and (max-width: 450px) {
+
+
+  .id-card {
+      width: 325px;
+      height: 192px;
+  }
+  
+  .cardbody {
+      height: 55vh;
+  }
+  
+  
+  .student-photo {
+      width: 75px;
+      height: 75px;
+      top: 23.1px;
+      left: 18.5px;
+  }
+  
+  .info {
+      top: 91px;
+      left: 181px;
+      font-size: 12px;
+  }
+
+  .info2 {
+      top: 183px;
+      left: 225px;
+      font-size: 12px;
+  }
+  
+  .info3 {
+      top: 102px;
+      left: 5px;
+      font-size: 12px;
+  }
+  
+  
+  .info4 {
+      top: 112px;
+      left: 83px;
+      font-size: 15px;
+  }
+  
+} 
