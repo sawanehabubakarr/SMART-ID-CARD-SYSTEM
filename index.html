@@ -15,8 +15,14 @@
             var departmentField2 = document.getElementById('departmentField2');
             var departmentField3 = document.getElementById('departmentField3');
             var departmentField4 = document.getElementById('departmentField4');
+            var departmentField5 = document.getElementById('departmentField5');
             
 
+            if (programField.value === 'PhD') {
+                departmentField.style.display = 'block';
+            } else {
+                departmentField.style.display = 'none';
+            }
             if (programField.value === 'Masters') {
                 departmentField.style.display = 'block';
             } else {
@@ -68,6 +74,7 @@
         <label for="program">Program:</label>
         <select id="program" name="program" onchange="toggleDepartmentField()">
           <option value="">Please Select</option>
+          <option value="PhD">Masters</option>
           <option value="Masters">Masters</option>
           <option value="Degree">Degree</option>
           <option value="Diploma">Diploma</option>
@@ -168,6 +175,15 @@
             <option value="Cert. Public Health">Cert. Public Health</option>
             <option value="Cert. Social Work">Cert. Social Work</option>
           <!-- Add more department options here -->
+          </select><br>
+        </div>
+
+        <div id="departmentField5" style="display: none;">
+          <label for="department">Department:</label>
+          <select id="department5" name="department">
+            <option value="">Please Select</option>
+            <option value="PhD Education">PhD Education</option>
+            <option value="PhD Sustainable Development">PhD Sustainable Development</option>
           </select><br>
         </div>
 
