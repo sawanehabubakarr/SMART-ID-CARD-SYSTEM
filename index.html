@@ -19,9 +19,9 @@
             
 
             if (programField.value === 'PhD') {
-                departmentField.style.display = 'block';
+                departmentField5.style.display = 'block';
             } else {
-                departmentField.style.display = 'none';
+                departmentField5.style.display = 'none';
             }
             if (programField.value === 'Masters') {
                 departmentField.style.display = 'block';
@@ -340,6 +340,8 @@
         department = document.getElementById("department3").value;
     } else if (program === "Certificate") {
         department = document.getElementById("department4").value;
+    } else if (program === "PhD") {
+        department = document.getElementById("department5").value;
     }
 
 
@@ -412,6 +414,9 @@ document.querySelector("form").addEventListener("submit", function (event) {
 
     // Determine the end date based on the selected program
     switch (programc) {
+        case "PhD":
+            date2 = (parseInt(date1.split('/')[1]) + 4).toString(); // PdD is 4 years
+            break;
         case "Masters":
             date2 = (parseInt(date1.split('/')[1]) + 3).toString(); // Masters is 3 years
             break;
@@ -438,6 +443,8 @@ document.querySelector("form").addEventListener("submit", function (event) {
         department = document.getElementById("department3").value;
     } else if (program === "Certificate") {
         department = document.getElementById("department4").value;
+    } else if (program === "PhD") {
+        department = document.getElementById("department5").value;
     }
 
     const idNumber = document.getElementById("idNumber").value;
@@ -497,6 +504,8 @@ document.getElementById("qrcode").style.marginLeft = marginLeftValue + 'px';
         department = document.getElementById("department3").value;
     } else if (program === "Certificate") {
         department = document.getElementById("department4").value;
+    } else if (program === "PhD") {
+        department = document.getElementById("department5").value;
     }
 
     var elText = Nme + "\n" + IDe + "\n" + department + "\n" + Eml + "\n" + Phne;
