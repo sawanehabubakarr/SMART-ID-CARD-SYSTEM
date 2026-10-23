@@ -87,9 +87,24 @@
             </div>
 
             <div class="field">
-                <label for="photo">Photo</label>
-                <input type="file" id="photo" accept="image/*;capture=camera" name="photo" required>
-                <p class="hint">A clear, front-facing photo. It is cropped to a circle on the card.</p>
+                <label for="cameraStart">Photo</label>
+                <div class="camera" id="camera" data-state="idle">
+                    <div class="camera-view">
+                        <video id="cameraVideo" autoplay playsinline muted></video>
+                        <img id="cameraResult" alt="Photo taken for the card">
+                        <div class="camera-guide" aria-hidden="true"></div>
+                        <p class="camera-empty">The camera is off.</p>
+                    </div>
+                    <div class="camera-controls">
+                        <button type="button" id="cameraStart" class="btn btn-outline">Start camera</button>
+                        <button type="button" id="cameraShoot" class="btn btn-primary-sm">Take photo</button>
+                        <button type="button" id="cameraRetake" class="btn btn-outline">Retake</button>
+                        <select id="cameraSelect" aria-label="Choose camera"></select>
+                        <button type="button" id="uploadBtn" class="btn btn-ghost">Upload photo</button>
+                        <input type="file" id="photoUpload" accept="image/*" hidden>
+                    </div>
+                </div>
+                <p class="hint" id="cameraHint">Take a photo with the camera, or upload one. The face should sit inside the circle.</p>
             </div>
         </fieldset>
 
@@ -298,6 +313,144 @@
     </section>
 </main>
 
+<!-- Camera: the photo must be taken live, uploads are not allowed -->
+<script>
+    window.capturedPhoto = null; // data URL of the photo taken, used by the card
+
+    (function () {
+        const PHOTO_SIZE = 600; // px, square; plenty for print at the card's photo size
+
+        const box      = document.getElementById("camera");
+        const video    = document.getElementById("cameraVideo");
+        const result   = document.getElementById("cameraResult");
+        const startBtn = document.getElementById("cameraStart");
+        const shootBtn = document.getElementById("cameraShoot");
+        const retake   = document.getElementById("cameraRetake");
+        const picker   = document.getElementById("cameraSelect");
+        const hint     = document.getElementById("cameraHint");
+        const defaultHint = hint.textContent;
+        let stream = null;
+
+        window.showCameraMessage = function (text, isError) {
+            hint.textContent = text || defaultHint;
+            hint.classList.toggle("hint-error", !!isError);
+        };
+
+        function setState(state) {
+            box.dataset.state = state; // idle | starting | live | taken
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+                stream = null;
+            }
+            video.srcObject = null;
+        }
+
+        async function listCameras() {
+            const devices = (await navigator.mediaDevices.enumerateDevices())
+                .filter(d => d.kind === "videoinput");
+            const current = stream && stream.getVideoTracks()[0].getSettings().deviceId;
+            picker.innerHTML = "";
+            devices.forEach((d, i) => {
+                const opt = document.createElement("option");
+                opt.value = d.deviceId;
+                opt.textContent = d.label || `Camera ${i + 1}`;
+                if (d.deviceId === current) opt.selected = true;
+                picker.appendChild(opt);
+            });
+            picker.hidden = devices.length < 2; // only offer a choice if there is one
+        }
+
+        async function startCamera(deviceId) {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                showCameraMessage("This browser can't use the camera. Open the page in Chrome or Edge.", true);
+                return;
+            }
+            stopCamera();
+            setState("starting");
+            showCameraMessage("Starting the camera. Allow camera access if your browser asks.");
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: deviceId
+                        ? { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }
+                        : { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+                    audio: false
+                });
+                video.srcObject = stream;
+                await video.play();
+                setState("live");
+                showCameraMessage();
+                listCameras();
+            } catch (err) {
+                stopCamera();
+                setState(window.capturedPhoto ? "taken" : "idle");
+                const messages = {
+                    NotAllowedError: "Camera access is blocked. Allow the camera using the icon in the address bar, then select Start camera.",
+                    NotFoundError: "No camera was found. Connect a camera, then select Start camera.",
+                    NotReadableError: "The camera is being used by another app. Close that app, then select Start camera.",
+                    OverconstrainedError: "That camera isn't available. Choose another camera."
+                };
+                showCameraMessage(messages[err.name] || "The camera couldn't start: " + err.message, true);
+            }
+        }
+
+        // Crop a centred square from a video frame or image, matching the circle guide
+        function usePhoto(source, w, h, message, fromCamera) {
+            retake.textContent = fromCamera ? "Retake" : "Use camera";
+            const side = Math.min(w, h);
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = PHOTO_SIZE;
+            canvas.getContext("2d").drawImage(
+                source, (w - side) / 2, (h - side) / 2, side, side, 0, 0, PHOTO_SIZE, PHOTO_SIZE
+            );
+            window.capturedPhoto = canvas.toDataURL("image/jpeg", 0.92);
+            result.src = window.capturedPhoto;
+            stopCamera(); // turn the camera light off
+            setState("taken");
+            showCameraMessage(message);
+        }
+
+        function takePhoto() {
+            const w = video.videoWidth, h = video.videoHeight;
+            if (!w || !h) return;
+            usePhoto(video, w, h, "Photo taken. Select Retake if it isn't clear.", true);
+        }
+
+        // Uploaded photos are read in as data, so they never block the card download
+        function uploadPhoto(file) {
+            if (!file) return;
+            if (!file.type.startsWith("image/")) {
+                showCameraMessage("That file isn't an image. Choose a JPG or PNG photo.", true);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                const img = new Image();
+                img.onload = () => usePhoto(img, img.naturalWidth, img.naturalHeight,
+                    "Photo uploaded and cropped to a centre square. If the face is cut off, upload another or use the camera.", false);
+                img.onerror = () => showCameraMessage("That photo couldn't be opened. Try a JPG or PNG.", true);
+                img.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        startBtn.addEventListener("click", () => startCamera());
+        shootBtn.addEventListener("click", takePhoto);
+        retake.addEventListener("click", () => startCamera(picker.value || undefined));
+        picker.addEventListener("change", () => startCamera(picker.value));
+
+        const fileInput = document.getElementById("photoUpload");
+        document.getElementById("uploadBtn").addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", () => {
+            uploadPhoto(fileInput.files[0]);
+            fileInput.value = ""; // allow choosing the same file again
+        });
+        window.addEventListener("pagehide", stopCamera);
+    })();
+</script>
+
 <!-- Admission year helper (works out the year automatically, no yearly edits needed) -->
 <script>
     // The academic year starts in October and cards expire in August.
@@ -455,6 +608,13 @@ document.querySelector("form").addEventListener("submit", function (event) {
     const faculty = document.getElementById("faculty").value;
     const program = document.getElementById("program").value;
     let department;
+    // A photo must be taken with the camera before the card can be made
+    if (!window.capturedPhoto) {
+        showCameraMessage("Take the student's photo before updating the card.", true);
+        document.getElementById("camera").scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+    }
+
     const facultyc = document.getElementById("currentYear").value;
     const programc = document.getElementById("program").value;
 
@@ -515,13 +675,8 @@ document.querySelector("form").addEventListener("submit", function (event) {
     // Update the campus
     document.getElementById("ccampus").innerHTML = campus;
 
-    // Change the image on the ID card
-    const photoInput = document.getElementById("photo");
-    if (photoInput.files.length > 0) {
-        const file = photoInput.files[0];
-        const imageUrl = URL.createObjectURL(file);
-        document.querySelector(".student-photo").style.backgroundImage = `url(${imageUrl})`;
-    }
+    // Put the photo taken with the camera on the ID card
+    document.querySelector(".student-photo").style.backgroundImage = `url(${window.capturedPhoto})`;
 });
 
 

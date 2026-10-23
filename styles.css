@@ -195,6 +195,137 @@ input[type="file"]::file-selector-button:hover {
   background: var(--water);
 }
 
+/* Camera */
+.camera {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.camera-view {
+  position: relative;
+  width: 176px;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--navy-deep);
+  flex-shrink: 0;
+}
+
+.camera-view video,
+.camera-view img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* same centred square that gets saved */
+  display: none;
+}
+
+/* Mirror the live view so moving left looks like moving left; the saved photo is not mirrored */
+.camera-view video {
+  transform: scaleX(-1);
+}
+
+.camera-guide {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 200px rgba(15, 28, 82, 0.45);
+  pointer-events: none;
+  display: none;
+}
+
+.camera-empty {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: #c9d3ee;
+}
+
+.camera-controls {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.camera-controls .btn {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+}
+
+.camera-controls select[hidden],
+.camera-controls .btn {
+  display: none;
+}
+
+/* What shows in each state */
+.camera[data-state="idle"] #cameraStart,
+.camera[data-state="starting"] #cameraStart { display: inline-flex; }
+.camera[data-state="starting"] #cameraStart { opacity: 0.6; pointer-events: none; }
+
+.camera[data-state="live"] video,
+.camera[data-state="live"] .camera-guide { display: block; }
+.camera[data-state="live"] #cameraShoot { display: inline-flex; }
+
+.camera[data-state="taken"] img { display: block; }
+.camera[data-state="taken"] #cameraRetake { display: inline-flex; }
+
+.camera[data-state="live"] .camera-empty,
+.camera[data-state="taken"] .camera-empty { display: none; }
+
+.camera:not([data-state="live"]) #cameraSelect { display: none; }
+
+/* Upload is always offered, except while the camera is starting */
+.camera:not([data-state="starting"]) #uploadBtn { display: inline-flex; }
+
+.btn.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.btn.btn-ghost:hover {
+  background: var(--water);
+  border-color: #9fb0cf;
+}
+
+.btn.btn-outline {
+  background: var(--white);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.btn.btn-outline:hover {
+  background: var(--water);
+}
+
+.btn.btn-primary-sm {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn.btn-primary-sm:hover {
+  background: var(--navy-deep);
+}
+
+.hint-error {
+  color: var(--red);
+  font-weight: 500;
+}
+
 /* Campus: segmented choice */
 .choices {
   display: flex;
