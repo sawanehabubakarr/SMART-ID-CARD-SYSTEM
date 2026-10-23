@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="qrcode.js"></script>
+    <script type="text/javascript" src="card-assets.js"></script>
     <title>UNIMAK Student ID Cards</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -591,27 +592,49 @@ document.getElementById("qrcode").style.marginLeft = marginLeftValue + 'px';
 <div id="imageModal">
     <img id="imageModalContent">
     <a id="downloadLink" download="capture.png">Download again</a>
-    <p style="color:#c9d3ee;margin:8px 0 0;font-size:13px;">Card downloaded. Click anywhere to close.</p>
+    <p id="modalMessage" style="color:#c9d3ee;margin:8px 0 0;font-size:13px;">Card downloaded. Click anywhere to close.</p>
 </div>
 
 <script>
+    // Use the embedded copies of the card artwork and sample photo (card-assets.js).
+    // Images loaded from the folder "taint" the canvas when the page is opened as a
+    // file://, and the browser then refuses to export the card as a PNG.
+    if (window.CARD_ASSETS) {
+        document.querySelector(".id-card").style.backgroundImage = `url(${CARD_ASSETS.card})`;
+        const photoEl = document.querySelector(".student-photo");
+        if (!photoEl.style.backgroundImage) {
+            photoEl.style.backgroundImage = `url(${CARD_ASSETS.photo})`;
+        }
+    }
+
     document.getElementById("submitBtn").addEventListener("click", function() {
-        const idNumber = document.getElementById("idNumber").value;
-        
+        const idNumber = document.getElementById("idNumber").value || "student-card";
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("imageModalContent");
+        const downloadLink = document.getElementById("downloadLink");
+        const message = document.getElementById("modalMessage");
+
         html2canvas(document.querySelector("#capture")).then(canvas => {
-            // Show the captured image in the lightbox
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("imageModalContent");
-            const downloadLink = document.getElementById("downloadLink");
+            const dataUrl = canvas.toDataURL("image/png");
             const fileName = `${idNumber}.png`; // Unique filename
-            modal.style.display = "block";
-            modalImg.src = canvas.toDataURL();
-            downloadLink.href = canvas.toDataURL();
-            downloadLink.style.display = "block";
+
+            // Show the captured image in the lightbox
+            modalImg.src = dataUrl;
+            modalImg.style.display = "block";
+            downloadLink.href = dataUrl;
+            downloadLink.style.display = "inline-block";
             downloadLink.setAttribute("download", fileName); // Set the download filename
+            message.textContent = `Saved as ${fileName}. Click anywhere to close.`;
+            modal.style.display = "block";
 
             // Automatically trigger the download
             downloadLink.click();
+        }).catch(err => {
+            console.error(err);
+            modalImg.style.display = "none";
+            downloadLink.style.display = "none";
+            message.textContent = "The card couldn't be saved as an image. Make sure card-assets.js is in the same folder as index.html, then try again. Click anywhere to close.";
+            modal.style.display = "block";
         });
     });
 

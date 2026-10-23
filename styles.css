@@ -361,7 +361,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 #downloadLink {
-  display: inline-block !important;
+  display: inline-block;
   margin-top: 16px;
   color: var(--white);
   font-weight: 600;
