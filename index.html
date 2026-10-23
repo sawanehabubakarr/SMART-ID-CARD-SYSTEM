@@ -252,7 +252,30 @@
       </div>
 
   </div>
-  
+
+<!-- Admission year helper (works out the year automatically, no yearly edits needed) -->
+<script>
+    // The academic year starts in October and cards expire in August.
+    // From this month onward, "Year 1" means students admitted this calendar year.
+    // (0 = Jan ... 8 = Sep, 9 = Oct). September is used so new cards are ready before October.
+    const ACADEMIC_YEAR_ROLLOVER_MONTH = 8;
+
+    // Returns the start year of the current academic year, e.g. 2026 for 2026/2027.
+    function getCurrentAcademicStartYear() {
+        const now = new Date();
+        return now.getMonth() >= ACADEMIC_YEAR_ROLLOVER_MONTH
+            ? now.getFullYear()
+            : now.getFullYear() - 1;
+    }
+
+    // Year of admission for a student in the given year of study ("1", "2", ...).
+    function getAdmissionYear(yearOfStudy) {
+        const level = parseInt(yearOfStudy, 10);
+        if (isNaN(level) || level < 1) return undefined;
+        return getCurrentAcademicStartYear() - (level - 1);
+    }
+</script>
+
 <!-- email generation script -->
 <script>
     // Add an event listener to the form for the fullname event
@@ -352,23 +375,8 @@
     // Calculate the year of admission based on the selected current year
     const cYear = document.getElementById("currentYear").value;
     
-    var admissionYear;
-
-    // Determine the end date based on the selected year and program
-    switch (cYear) {
-        case "1":
-            admissionYear = "2025";
-            break;
-        case "2":
-            admissionYear   = "2024";
-            break;
-        case "3":
-            admissionYear = "2023";
-            break;
-        case "4":
-            admissionYear = "2022";
-            break;
-    }
+    // Worked out from today's date, so it never needs updating by hand
+    const admissionYear = getAdmissionYear(cYear) ?? "";
 
     // Abbreviate the department name based on the mapping
     const departmentAbbreviation = departmentAbbreviations[department] || "";
@@ -396,24 +404,15 @@ document.querySelector("form").addEventListener("submit", function (event) {
     const facultyc = document.getElementById("currentYear").value;
     const programc = document.getElementById("program").value;
 
-    var date1;
     var date2;
 
-    // Determine the end date based on the selected year and program
-    switch (facultyc) {
-        case "1":
-            date1 = "10/2025";
-            break;
-        case "2":
-            date1 = "10/2024";
-            break;
-        case "3":
-            date1 = "10/2023";
-            break;
-        case "4":
-            date1 = "10/2022";
-            break;
+    // Admission date is worked out from today's date, so it never needs updating by hand
+    const admissionYear = getAdmissionYear(facultyc);
+    if (admissionYear === undefined) {
+        alert("Please select your current year.");
+        return;
     }
+    var date1 = "10/" + admissionYear;
 
     // Determine the end date based on the selected program
     switch (programc) {
