@@ -7,7 +7,10 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="qrcode.js"></script>
-    <title>Student Information Form</title>
+    <title>UNIMAK Student ID Cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
     <script>
         function toggleDepartmentField() {
             var programField = document.getElementById('program');
@@ -50,208 +53,249 @@
     </script>
 </head>
 <body>
-    <h1>Student Information Form</h1>
-    <form>
-<!-- current year Field -->
-        <label for="currentYear">What's your current year?</label>
-        <select id="currentYear" name="currentYear">
-            <option value="">Please Select</option>
-            <option value="1">Year 1</option>
-            <option value="2">Year 2</option>
-            <option value="3">Year 3</option>
-            <option value="4">Year 4</option>
-        </select><br>
-<!-- ID Number Field -->
-        <label for="idNumber">ID Number:</label>
-        <input type="number" id="idNumber" name="idNumber" data-defaultvalue="" value="" placeholder="e.g., 8527" data-component="number" required><br>
-<!-- Take Photo Field -->
-        <label for="photo">Take Photo:</label>
-        <input type="file" id="photo" accept="image/*;capture=camera" name="photo" required><br>
-<!-- Full Name Field -->
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" required><br>
-<!-- Program Field -->
-        <label for="program">Program:</label>
-        <select id="program" name="program" onchange="toggleDepartmentField()">
-          <option value="">Please Select</option>
-          <option value="PhD">PhD</option>
-          <option value="Masters">Masters</option>
-          <option value="Degree">Degree</option>
-          <option value="Diploma">Diploma</option>
-          <option value="Certificate">Certificate</option>
-        </select><br>
+<header class="masthead">
+    <h1>Student ID cards</h1>
+    <p>Fill in the student's details, check the card, then download it for printing.</p>
+</header>
 
-<!-- Department Fields (Initially hidden) -->
-        <div id="departmentField" style="display: none;">
-            <label for="department">Department:</label>
-            <select id="department" name="department">
-              <option value="">Please Select</option>
-              <option value="LLM Law">LLM Law</option>
-              <option value="M.A Sustainable Development">M.A Sustainable Development</option>
-              <option value="M.Ed. Education">M.Ed. Education</option>
-              <option value="M.Ph Public Health">M.Ph Public Health</option>
-              <option value="MBA Entrepreneurship">MBA Entrepreneurship</option>
-              <option value="MBA Finance">MBA Finance</option>
-              <option value="MBA HRM">MBA HRM</option>
-              <option value="Paralegal">Paralegal</option>
-              <option value="PG Dip. Education">PG Dip. Education</option>
-              <!-- Add more department options here -->
-            </select><br>
-        </div>
+<main class="workspace">
+    <form id="studentForm" class="panel">
+        <fieldset>
+            <legend>Student</legend>
 
-        <div id="departmentField2" style="display: none;">
-          <label for="department">Department:</label>
-          <select id="department2" name="department">
-            <option value="">Please Select</option>
-            <option value="B.A Development studies">B.A Development studies</option>
-            <option value="B.A Mass Communication">B.A Mass Communication</option>
-            <option value="B.A Political Sci. &amp; Int. Relations">B.A Political Sci. &amp; Int. Relations</option>
-            <option value="B.A Public Admin &amp; Mgt.">B.A Public Admin &amp; Mgt.</option>
-            <option value="B.Ed. Education">B.Ed. Education</option>
-            <option value="B.Sc Social Work">B.Sc Social Work</option>
-            <option value="B.Sc. Accounting &amp; Finance">B.Sc. Accounting &amp; Finance</option>
-            <option value="B.Sc. Agric &amp; Food Sciences">B.Sc. Agric &amp; Food Sciences</option>
-            <option value="B.Sc. Agric &amp; Food Technology">B.Sc. Agric &amp; Food Technology</option>
-            <option value="B.Sc. Banking &amp; Finance">B.Sc. Banking &amp; Finance</option>
-            <option value="B.Sc. Business Administration &amp; Mgt.">B.Sc. Business Administration &amp; Mgt.</option>
-            <option value="B.Sc. Clinical Psychology">B.Sc. Clinical Psychology</option>
-            <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
-            <option value="B.Sc. Economics">B.Sc. Economics</option>
-            <option value="B.Sc. Human Resource Mgt.">B.Sc. Human Resource Mgt.</option>
-            <option value="B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.">B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
-            <option value="B.Sc. Public Health">B.Sc. Public Health</option>
-            <option value="LLB Law">LLB Law</option>
-            <option value="Special Needs">Special Needs</option>
-            <option value="B.Sc. Nursing">B.Sc. Nursing</option>
-            <!-- <option value="B.Sc. Pre Nursing">B.Sc. Pre Nursing</option>-->
-          <!-- Add more department options here -->
-          </select><br>
-        </div>
+            <div class="field">
+                <label for="fullName">Full name</label>
+                <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+            </div>
 
-        <div id="departmentField3" style="display: none;">
-          <label for="department">Department:</label>
-          <select id="department3" name="department">
-            <option value="">Please Select</option>
-            <option value="Dip. Accounting &amp; Finance">Dip. Accounting &amp; Finance</option>
-            <option value="Dip. Agric &amp; Food Sciences">Dip. Agric &amp; Food Sciences</option>
-            <option value="Dip. Agric &amp; Food Technology">Dip. Agric &amp; Food Technology</option>
-            <option value="Dip. Banking &amp; Finance">Dip. Banking &amp; Finance</option>
-            <option value="Dip. Business Administration &amp; Mgt.">Dip. Business Administration &amp; Mgt.</option>
-            <option value="Dip. Clinical Psychology">Dip. Clinical Psychology</option>
-            <option value="Dip. Computer Science">Dip. Computer Science</option>
-            <option value="Dip. Development studies">Dip. Development studies</option>
-            <option value="Dip. Economics">Dip. Economics</option>
-            <option value="Dip. Human Resource Mgt.">Dip. Human Resource Mgt.</option>
-             <option value="Dip. Law">LLB Law</option>
-            <option value="Dip. Mass Communication">Dip. Mass Communication</option>
-            <option value="Dip. Political Sci. &amp; Int. Relations">Dip. Political Sci. &amp; Int. Relations</option>
-            <option value="Dip. Pro., Logistics, &amp; Supply Ch. Mgt.">Dip. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
-            <option value="Dip. Public Admin &amp; Mgt.">Dip. Public Admin &amp; Mgt.</option>
-            <option value="Dip. Public Health">Dip. Public Health</option>
-            <option value="Dip. Social Work">Dip. Social Work</option>
-            <option value="SRN">SRN</option>
-            <!-- Add more department options here -->
-          </select><br>
-        </div>
+            <div class="row">
+                <div class="field">
+                    <label for="idNumber">ID number</label>
+                    <input type="number" id="idNumber" name="idNumber" data-defaultvalue="" value="" placeholder="e.g. 8527" data-component="number" required>
+                </div>
+                <div class="field">
+                    <label for="currentYear">Current year</label>
+                    <select id="currentYear" name="currentYear" required>
+                        <option value="">Select year</option>
+                        <option value="1">Year 1</option>
+                        <option value="2">Year 2</option>
+                        <option value="3">Year 3</option>
+                        <option value="4">Year 4</option>
+                    </select>
+                </div>
+            </div>
 
-        <div id="departmentField4" style="display: none;">
-          <label for="department">Department:</label>
-          <select id="department4" name="department">
-            <option value="">Please Select</option>
-            <option value="Cert. Accounting &amp; Finance">Cert. Accounting &amp; Finance</option>
-            <option value="Cert. Autoclave">Cert. Autoclave</option>
-            <option value="Cert. Agric &amp; Food Sciences">Cert. Agric &amp; Food Sciences</option>
-            <option value="Cert. Agric &amp; Food Technology">Cert. Agric &amp; Food Technology</option>
-            <option value="Cert. Banking &amp; Finance">Cert. Banking &amp; Finance</option>
-            <option value="Cert. Business Administration &amp; Mgt.">Cert. Business Administration &amp; Mgt.</option>
-            <option value="Cert. Clinical Psychology">Cert. Clinical Psychology</option>
-            <option value="Cert. Computer Science">Cert. Computer Science</option>
-            <option value="Cert. Development studies">Cert. Development studies</option>
-            <option value="Cert. Economics">Cert. Economics</option>
-            <option value="Cert. Health Data Management">Cert. Health Data Mgt.</option>
-            <option value="Cert. Human Resource Mgt.">Cert. Human Resource Mgt.</option>
-            <option value="Cert. Mass Communication">Cert. Mass Communication</option>
-            <option value="Cert. Political Sci. &amp; Int. Relations">Cert. Political Sci. &amp; Int. Relations</option>
-            <option value="Cert. Pro., Logistics, &amp; Supply Ch. Mgt.">Cert. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
-            <option value="Cert. Public Admin &amp; Mgt.">Cert. Public Admin &amp; Mgt.</option>
-            <option value="Cert. Public Health">Cert. Public Health</option>
-            <option value="Cert. Social Work">Cert. Social Work</option>
-            <option value="Cert. X-Ray">Cert. X-Ray</option>
-          <!-- Add more department options here -->
-          </select><br>
-        </div>
+            <div class="field">
+                <label for="photo">Photo</label>
+                <input type="file" id="photo" accept="image/*;capture=camera" name="photo" required>
+                <p class="hint">A clear, front-facing photo. It is cropped to a circle on the card.</p>
+            </div>
+        </fieldset>
 
-        <div id="departmentField5" style="display: none;">
-          <label for="department">Department:</label>
-          <select id="department5" name="department">
-            <option value="">Please Select</option>
-            <option value="PhD Education">PhD Education</option>
-            <option value="PhD Sustainable Development">PhD Sustainable Development</option>
-          </select><br>
-        </div>
+        <fieldset>
+            <legend>Studies</legend>
 
+            <div class="field">
+                <label for="program">Programme</label>
+                <select id="program" name="program" onchange="toggleDepartmentField()" required>
+                    <option value="">Select programme</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Masters">Masters</option>
+                    <option value="Degree">Degree</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Certificate">Certificate</option>
+                </select>
+            </div>
 
+            <!-- Department fields: only the one matching the programme is shown -->
+            <div id="departmentField5" class="field" style="display: none;">
+                <label for="department5">Department</label>
+                <select id="department5" name="department">
+                    <option value="">Select one</option>
+                    <option value="PhD Education">PhD Education</option>
+                    <option value="PhD Sustainable Development">PhD Sustainable Development</option>
+                </select>
+            </div>
+            <div id="departmentField" class="field" style="display: none;">
+                <label for="department">Department</label>
+                <select id="department" name="department">
+                    <option value="">Select one</option>
+                    <option value="LLM Law">LLM Law</option>
+                    <option value="M.A Sustainable Development">M.A Sustainable Development</option>
+                    <option value="M.Ed. Education">M.Ed. Education</option>
+                    <option value="M.Ph Public Health">M.Ph Public Health</option>
+                    <option value="MBA Entrepreneurship">MBA Entrepreneurship</option>
+                    <option value="MBA Finance">MBA Finance</option>
+                    <option value="MBA HRM">MBA HRM</option>
+                    <option value="Paralegal">Paralegal</option>
+                    <option value="PG Dip. Education">PG Dip. Education</option>
+                    <!-- Add more department options here -->
+                </select>
+            </div>
+            <div id="departmentField2" class="field" style="display: none;">
+                <label for="department2">Department</label>
+                <select id="department2" name="department">
+                    <option value="">Select one</option>
+                    <option value="B.A Development studies">B.A Development studies</option>
+                    <option value="B.A Mass Communication">B.A Mass Communication</option>
+                    <option value="B.A Political Sci. &amp; Int. Relations">B.A Political Sci. &amp; Int. Relations</option>
+                    <option value="B.A Public Admin &amp; Mgt.">B.A Public Admin &amp; Mgt.</option>
+                    <option value="B.Ed. Education">B.Ed. Education</option>
+                    <option value="B.Sc Social Work">B.Sc Social Work</option>
+                    <option value="B.Sc. Accounting &amp; Finance">B.Sc. Accounting &amp; Finance</option>
+                    <option value="B.Sc. Agric &amp; Food Sciences">B.Sc. Agric &amp; Food Sciences</option>
+                    <option value="B.Sc. Agric &amp; Food Technology">B.Sc. Agric &amp; Food Technology</option>
+                    <option value="B.Sc. Banking &amp; Finance">B.Sc. Banking &amp; Finance</option>
+                    <option value="B.Sc. Business Administration &amp; Mgt.">B.Sc. Business Administration &amp; Mgt.</option>
+                    <option value="B.Sc. Clinical Psychology">B.Sc. Clinical Psychology</option>
+                    <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
+                    <option value="B.Sc. Economics">B.Sc. Economics</option>
+                    <option value="B.Sc. Human Resource Mgt.">B.Sc. Human Resource Mgt.</option>
+                    <option value="B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.">B.Sc. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+                    <option value="B.Sc. Public Health">B.Sc. Public Health</option>
+                    <option value="LLB Law">LLB Law</option>
+                    <option value="Special Needs">Special Needs</option>
+                    <option value="B.Sc. Nursing">B.Sc. Nursing</option>
+                    <!-- <option value="B.Sc. Pre Nursing">B.Sc. Pre Nursing</option>-->
+                    <!-- Add more department options here -->
+                </select>
+            </div>
+            <div id="departmentField3" class="field" style="display: none;">
+                <label for="department3">Department</label>
+                <select id="department3" name="department">
+                    <option value="">Select one</option>
+                    <option value="Dip. Accounting &amp; Finance">Dip. Accounting &amp; Finance</option>
+                    <option value="Dip. Agric &amp; Food Sciences">Dip. Agric &amp; Food Sciences</option>
+                    <option value="Dip. Agric &amp; Food Technology">Dip. Agric &amp; Food Technology</option>
+                    <option value="Dip. Banking &amp; Finance">Dip. Banking &amp; Finance</option>
+                    <option value="Dip. Business Administration &amp; Mgt.">Dip. Business Administration &amp; Mgt.</option>
+                    <option value="Dip. Clinical Psychology">Dip. Clinical Psychology</option>
+                    <option value="Dip. Computer Science">Dip. Computer Science</option>
+                    <option value="Dip. Development studies">Dip. Development studies</option>
+                    <option value="Dip. Economics">Dip. Economics</option>
+                    <option value="Dip. Human Resource Mgt.">Dip. Human Resource Mgt.</option>
+                    <option value="Dip. Law">LLB Law</option>
+                    <option value="Dip. Mass Communication">Dip. Mass Communication</option>
+                    <option value="Dip. Political Sci. &amp; Int. Relations">Dip. Political Sci. &amp; Int. Relations</option>
+                    <option value="Dip. Pro., Logistics, &amp; Supply Ch. Mgt.">Dip. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+                    <option value="Dip. Public Admin &amp; Mgt.">Dip. Public Admin &amp; Mgt.</option>
+                    <option value="Dip. Public Health">Dip. Public Health</option>
+                    <option value="Dip. Social Work">Dip. Social Work</option>
+                    <option value="SRN">SRN</option>
+                    <!-- Add more department options here -->
+                </select>
+            </div>
+            <div id="departmentField4" class="field" style="display: none;">
+                <label for="department4">Department</label>
+                <select id="department4" name="department">
+                    <option value="">Select one</option>
+                    <option value="Cert. Accounting &amp; Finance">Cert. Accounting &amp; Finance</option>
+                    <option value="Cert. Autoclave">Cert. Autoclave</option>
+                    <option value="Cert. Agric &amp; Food Sciences">Cert. Agric &amp; Food Sciences</option>
+                    <option value="Cert. Agric &amp; Food Technology">Cert. Agric &amp; Food Technology</option>
+                    <option value="Cert. Banking &amp; Finance">Cert. Banking &amp; Finance</option>
+                    <option value="Cert. Business Administration &amp; Mgt.">Cert. Business Administration &amp; Mgt.</option>
+                    <option value="Cert. Clinical Psychology">Cert. Clinical Psychology</option>
+                    <option value="Cert. Computer Science">Cert. Computer Science</option>
+                    <option value="Cert. Development studies">Cert. Development studies</option>
+                    <option value="Cert. Economics">Cert. Economics</option>
+                    <option value="Cert. Health Data Management">Cert. Health Data Mgt.</option>
+                    <option value="Cert. Human Resource Mgt.">Cert. Human Resource Mgt.</option>
+                    <option value="Cert. Mass Communication">Cert. Mass Communication</option>
+                    <option value="Cert. Political Sci. &amp; Int. Relations">Cert. Political Sci. &amp; Int. Relations</option>
+                    <option value="Cert. Pro., Logistics, &amp; Supply Ch. Mgt.">Cert. Pro., Logistics, &amp; Supply Ch. Mgt.</option>
+                    <option value="Cert. Public Admin &amp; Mgt.">Cert. Public Admin &amp; Mgt.</option>
+                    <option value="Cert. Public Health">Cert. Public Health</option>
+                    <option value="Cert. Social Work">Cert. Social Work</option>
+                    <option value="Cert. X-Ray">Cert. X-Ray</option>
+                    <!-- Add more department options here -->
+                </select>
+            </div>
 
-<!-- Faculty Field -->
-        <label for="faculty">Faculty:</label>
-        <select id="faculty" name="faculty">
-            <option value="">Please Select</option>
-            <option value="Agriculture &amp; Food Sciences">Agriculture &amp; Food Sciences</option>
-            <option value="Commerce &amp; Management">Commerce &amp; Management</option>
-            <option value="Education">Education</option>
-            <option value="Mass Comm. &amp; Computer Sci.">Mass Comm. &amp; Computer Sci.</option>
-            <option value="Nursing &amp; Allied Health Sciences">Nursing &amp; Allied Health Sciences</option>
-            <option value="Post Graduate Studies">Post Graduate Studies</option>
-            <option value="Law &amp; Humanity">Law &amp; Humanity</option>
-            <option value="Social Science">Social Science</option>     
-        </select><br>
-<!-- Phone Number Field -->
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
-<!-- Email Field -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-<!-- campus Field -->
-        <label>Choose your campus:</label><br>
-        <input type="radio" id="campus1" name="campus" value="Yoni" required>
-        <label for="Yoni">Yoni</label><br>
+            <div class="field">
+                <label for="faculty">Faculty</label>
+                <select id="faculty" name="faculty">
+                    <option value="">Select one</option>
+                    <option value="Agriculture &amp; Food Sciences">Agriculture &amp; Food Sciences</option>
+                    <option value="Commerce &amp; Management">Commerce &amp; Management</option>
+                    <option value="Education">Education</option>
+                    <option value="Mass Comm. &amp; Computer Sci.">Mass Comm. &amp; Computer Sci.</option>
+                    <option value="Nursing &amp; Allied Health Sciences">Nursing &amp; Allied Health Sciences</option>
+                    <option value="Post Graduate Studies">Post Graduate Studies</option>
+                    <option value="Law &amp; Humanity">Law &amp; Humanity</option>
+                    <option value="Social Science">Social Science</option>
+                </select>
+            </div>
+        </fieldset>
 
-        <input type="radio" id="campus2" name="campus" value="Fatima">
-        <label for="Fatima">Fatima</label><br>
+        <fieldset>
+            <legend>Contact</legend>
 
-        <input type="radio" id="campus3" name="campus" value="St. John of God">
-        <label for="St. John of God">St. John of God</label><br>
+            <div class="field">
+                <label for="phoneNumber">Phone number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" autocomplete="tel" placeholder="e.g. 076 000 000" required>
+            </div>
 
-        <br>
-        <input type="submit" value="Submit">
-        <button id="submitBtn" type="button">Print Preview</button>
+            <div class="field">
+                <label for="email">University email</label>
+                <input type="email" id="email" name="email" required>
+                <p class="hint">Filled in for you once the year, ID number, department and faculty are chosen.</p>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Campus</legend>
+            <div class="choices">
+                <input type="radio" id="campus1" name="campus" value="Yoni" required>
+                <label for="campus1">Yoni</label>
+
+                <input type="radio" id="campus2" name="campus" value="Fatima">
+                <label for="campus2">Fatima</label>
+
+                <input type="radio" id="campus3" name="campus" value="St. John of God">
+                <label for="campus3">St. John of God</label>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary">Update card</button>
     </form>
-    
 
-<section class="cardbody">
-    <div id="capture" class="id-card">
-      <div class="student-photo"></div>
-      <!--/* QR Code placeholder */-->
-      <div id="qrcode" style="width:130px; height:100px; margin-top:215px;margin-left: 11px;"></div>
+    <section class="preview" aria-label="Card preview">
+        <div class="stage">
+            <div class="crop">
+                <span class="mark tl"></span><span class="mark tr"></span>
+                <span class="mark bl"></span><span class="mark br"></span>
 
+                <div id="capture" class="id-card">
+                    <div class="student-photo"></div>
+                    <!--/* QR Code placeholder */-->
+                    <div id="qrcode" style="width:130px; height:100px; margin-top:215px;margin-left: 11px;"></div>
 
-      <div class="info">
-          <p id="cfaculty">Mass Comm. & Computer Sci.</p>
-          <p id="ccourse">B.sc. Computer Science</p>
-          <p id="ccampus">Yoni</p>
-      </div>
-      <div class="info2">
-          <p id="adate">10/2022</p>
-          <p id="edate">08/2026</p>
-      </div>
-      <div class="info3">
-          <p id="cname">Abubakarr Sawaneh</p>
-      </div>
-      <div class="info4">
-          <p id="cid-num">8527</p>
-      </div>
+                    <div class="info">
+                        <p id="cfaculty">Mass Comm. & Computer Sci.</p>
+                        <p id="ccourse">B.sc. Computer Science</p>
+                        <p id="ccampus">Yoni</p>
+                    </div>
+                    <div class="info2">
+                        <p id="adate">10/2022</p>
+                        <p id="edate">08/2026</p>
+                    </div>
+                    <div class="info3">
+                        <p id="cname">Abubakarr Sawaneh</p>
+                    </div>
+                    <div class="info4">
+                        <p id="cid-num">8527</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  </div>
+        <div class="preview-actions">
+            <p>The card changes when you select <strong>Update card</strong>. Check every detail before downloading.</p>
+            <button id="submitBtn" type="button" class="btn btn-light">Download card</button>
+        </div>
+    </section>
+</main>
 
 <!-- Admission year helper (works out the year automatically, no yearly edits needed) -->
 <script>
@@ -279,8 +323,8 @@
 <!-- email generation script -->
 <script>
     // Add an event listener to the form for the fullname event
-    document.getElementById("faculty").addEventListener("blur", function () {
-    event.preventDefault(); // Prevent the default form submission
+    // Rebuild the email whenever any field it depends on changes
+    function generateEmail() {
 
     // Mapping of department abbreviations to full department names
     const departmentAbbreviations = {
@@ -381,12 +425,21 @@
     // Abbreviate the department name based on the mapping
     const departmentAbbreviation = departmentAbbreviations[department] || "";
 
+    // Wait until year, department and ID number are all known
+    if (!admissionYear || !departmentAbbreviation || !idNumber) return;
+
     // Generate the email in the format "admissionYeardepartmentAbbreviationIDNumber@unimak.edu.sl"
     const email = `${admissionYear}${departmentAbbreviation}${idNumber}@unimak.edu.sl`;
     // Update the email field with the generated email
     document.getElementById("email").value = email;
+    }
 
-});
+    ["currentYear", "idNumber", "program", "department", "department2",
+     "department3", "department4", "department5", "faculty"].forEach(function (id) {
+        const el = document.getElementById(id);
+        el.addEventListener("change", generateEmail);
+        el.addEventListener("input", generateEmail);
+    });
 
 </script> 
 
@@ -472,15 +525,14 @@ document.querySelector("form").addEventListener("submit", function (event) {
 
 
 </script>
-</section>
 
 
 
 <!-- QR Code Script -->
 <script type="text/javascript">
-    var qrcodeSize = (window.innerWidth <= 450) ? 70 : 130;
-    var marginTopValue = (window.innerWidth <= 450) ? 115 : 215;
-    var marginLeftValue = (window.innerWidth <= 450) ? 0 : 11;
+    var qrcodeSize = (window.innerWidth <= 700) ? 70 : 130;
+    var marginTopValue = (window.innerWidth <= 700) ? 115 : 215;
+    var marginLeftValue = (window.innerWidth <= 700) ? 0 : 11;
     
     var qrcode = new QRCode(document.getElementById("qrcode"), {
         width: qrcodeSize,
@@ -538,7 +590,8 @@ document.getElementById("qrcode").style.marginLeft = marginLeftValue + 'px';
 <!-- ScreenShot Code Script -->
 <div id="imageModal">
     <img id="imageModalContent">
-    <a id="downloadLink" download="capture.png">Download</a>
+    <a id="downloadLink" download="capture.png">Download again</a>
+    <p style="color:#c9d3ee;margin:8px 0 0;font-size:13px;">Card downloaded. Click anywhere to close.</p>
 </div>
 
 <script>
@@ -563,7 +616,8 @@ document.getElementById("qrcode").style.marginLeft = marginLeftValue + 'px';
     });
 
     // Close the lightbox when clicking on it
-    document.getElementById("imageModal").addEventListener("click", function() {
+    document.getElementById("imageModal").addEventListener("click", function(e) {
+        if (e.target.id === "downloadLink") return; // keep it open when the download link is used
         this.style.display = "none";
     });
 </script>

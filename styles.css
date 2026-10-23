@@ -1,202 +1,548 @@
-/* Apply basic styling to the form container */
-form {
-  max-width: 400px;
+/* ==========================================================
+   UNIMAK Student ID Cards
+   Colours are taken from the card artwork: crest navy,
+   torch red, and the pale water blue of the card background.
+   ========================================================== */
+:root {
+  --navy: #1a2c7a;
+  --navy-deep: #0f1c52;
+  --red: #b3202a;
+  --water: #e9eff8;
+  --ink: #1c2333;
+  --muted: #5b6579;
+  --line: #c8d2e3;
+  --white: #ffffff;
+
+  --font-ui: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+body {
+  margin: 0;
+  background: var(--water);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---------- Header ---------- */
+.masthead {
+  max-width: 1240px;
   margin: 0 auto;
+  padding: 32px 24px 8px;
 }
 
-
-h1 {
-  text-align: center;
-  color: #333;
+.masthead h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--navy-deep);
 }
 
+.masthead p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+/* ---------- Two-column workspace ---------- */
+.workspace {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 24px 48px;
+  display: grid;
+  grid-template-columns: minmax(360px, 440px) 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ---------- Form ---------- */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 24px 24px;
+}
+
+.panel *,
+.panel *::before,
+.panel *::after {
+  box-sizing: border-box;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 18px 0 6px;
+  min-width: 0;
+}
+
+fieldset + fieldset {
+  border-top: 1px solid var(--line);
+}
+
+legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+legend + * {
+  clear: both;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
 
 label {
   display: block;
-  margin-top: 10px;
-  font-weight: bold;
-  color: #555;
+  margin-bottom: 5px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
 }
 
-/* Style form input and select fields */
 input[type="text"],
 input[type="number"],
 input[type="tel"],
 input[type="email"],
 select {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--ink);
+  font: inherit;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
 }
 
-/* Style the file input field */
+select {
+  appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235b6579' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+input::placeholder {
+  color: #98a1b3;
+}
+
+input:hover,
+select:hover {
+  border-color: #9fb0cf;
+}
+
+input:focus-visible,
+select:focus-visible,
+.btn:focus-visible {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(26, 44, 122, 0.22);
+}
+
+/* Fields the user has touched and left invalid */
+input:user-invalid,
+select:user-invalid {
+  border-color: var(--red);
+}
+
+.hint {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* File input */
 input[type="file"] {
   width: 100%;
-  margin-top: 5px;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--muted);
 }
 
-/* Style the radio buttons and labels */
-input[type="radio"] {
-  margin: 0 5px 0 0;
-}
-
-/* Add some spacing between radio buttons and labels */
-label[for="Yoni"],
-label[for="Fatima"],
-label[for="St. John of God"] {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-
-/* Style the submit button */
-input[type="submit"] {
-  background-color: #007BFF;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
+input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--navy);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 15px;
 }
 
-/* Style the select dropdowns */
-select {
+input[type="file"]::file-selector-button:hover {
+  background: var(--water);
+}
+
+/* Campus: segmented choice */
+.choices {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.choices input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.choices label {
+  flex: 1;
+  margin: 0;
+  padding: 10px 8px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.choices label + input + label {
+  border-left: 1px solid var(--line);
+}
+
+.choices label:hover {
+  background: var(--water);
+}
+
+.choices input:checked + label {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.choices input:focus-visible + label {
+  box-shadow: inset 0 0 0 3px rgba(26, 44, 122, 0.35);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.btn-primary {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  margin-top: 8px;
+  background: var(--navy);
+  color: var(--white);
 }
 
-/* Add some spacing between form elements */
-br {
-  margin-bottom: 10px;
+.btn-primary:hover {
+  background: var(--navy-deep);
 }
 
+.btn-light {
+  background: var(--white);
+  color: var(--navy-deep);
+  flex-shrink: 0;
+}
 
-#departmentField {
+.btn-light:hover {
+  background: var(--water);
+}
+
+.btn-light:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- Card preview ---------- */
+.preview {
+  position: sticky;
+  top: 20px;
+  background: var(--navy-deep);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stage {
+  display: flex;
+  justify-content: center;
+  padding: 44px 24px;
+  overflow-x: auto;
+  /* faint print-bed grid */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Crop marks around the card, as on a print sheet */
+.crop {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: rgba(255, 255, 255, 0.55);
+  border-style: solid;
+  border-width: 0;
+}
+
+.mark.tl { top: -14px;    left: -14px;  border-top-width: 1px;    border-left-width: 1px; }
+.mark.tr { top: -14px;    right: -14px; border-top-width: 1px;    border-right-width: 1px; }
+.mark.bl { bottom: -14px; left: -14px;  border-bottom-width: 1px; border-left-width: 1px; }
+.mark.br { bottom: -14px; right: -14px; border-bottom-width: 1px; border-right-width: 1px; }
+
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: #c9d3ee;
+  font-size: 13.5px;
+}
+
+.preview-actions p {
+  margin: 0;
+  flex: 1;
+}
+
+.preview-actions strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Downloaded image overlay */
+#imageModal {
   display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  padding: 40px 20px;
+  background: rgba(10, 18, 52, 0.94);
+  text-align: center;
+  cursor: zoom-out;
+  overflow: auto;
 }
 
+#imageModalContent {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
 
-    /* Center the card container */
-    .cardbody {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+#downloadLink {
+  display: inline-block !important;
+  margin-top: 16px;
+  color: var(--white);
+  font-weight: 600;
+}
 
-    /* ID card container */
-    .id-card {
-        width: 600px;
-        height: 360px;
-        background-image: url('CARD.png'); /* Relative path to your image */
-        background-size: cover;
-        border: 2px solid #000;
-        border-radius: 10px;
-        padding: 20px;
-        position: relative;
-    }
+/* ==========================================================
+   ID CARD — do not restyle. Sizes, fonts and offsets are
+   matched to CARD.png and to the downloaded PNG.
+   ========================================================== */
+.id-card {
+  width: 600px;
+  height: 360px;
+  background-image: url('CARD.png');
+  background-size: cover;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  box-sizing: content-box;
+  /* Pinned to the browser default the card was designed with */
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: normal;
+  color: #000;
+}
 
-    /* Student photo placeholder */
-    .student-photo {
-        width: 130px;
-        height: 130px;
-        border: 2px solid #000;
-        border-radius: 50%;
-        background-color: #ccc;
-        background-image: url('ME2.jpg');
-        background-size: cover;
-        background-position: center center;
-        position: absolute;
-        top: 42px;
-        left: 34px;
-    }
+.student-photo {
+  width: 130px;
+  height: 130px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background-color: #ccc;
+  background-image: url('ME2.jpg');
+  background-size: cover;
+  background-position: center center;
+  position: absolute;
+  top: 42px;
+  left: 34px;
+}
 
-    /* Text placeholders */
-    .info {
-        position: absolute;
-        top: 157px;
-        left: 315px;
-        font-size: 18.95px;
-        font-weight: bold;
-    }
-    .info2 {
-        font-weight: bold;
-        position: absolute;
-        top: 321px;
-        left: 390px;
-        font-size: 20px;
-    }
-    .info3 {
-        font-weight: bold;
-        position: absolute;
-        top: 180px;
-        left: 20px;
-        font-size: 20px;
-    }
-    .info4 {
-        font-weight: bold;
-        position: absolute;
-        top: 200px;
-        left: 145px;
-        font-size: 20px;
-    }
-    .info p,.info2 p, .info3 p, .info4 p {
-        margin: 0;
-    }
+.info {
+  position: absolute;
+  top: 157px;
+  left: 315px;
+  font-size: 18.95px;
+  font-weight: bold;
+}
 
+.info2 {
+  font-weight: bold;
+  position: absolute;
+  top: 321px;
+  left: 390px;
+  font-size: 20px;
+}
 
-@media screen and (max-width: 450px) {
+.info3 {
+  font-weight: bold;
+  position: absolute;
+  top: 180px;
+  left: 20px;
+  font-size: 20px;
+}
 
+.info4 {
+  font-weight: bold;
+  position: absolute;
+  top: 200px;
+  left: 145px;
+  font-size: 20px;
+}
 
+.info p,
+.info2 p,
+.info3 p,
+.info4 p {
+  margin: 0;
+}
+
+/* ---------- Narrower screens: stack, card first ---------- */
+@media screen and (max-width: 1120px) {
+  .masthead {
+    max-width: 760px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+  }
+
+  .preview {
+    position: static;
+    order: -1;
+  }
+
+  .stage {
+    padding: 36px 16px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .masthead {
+    padding: 22px 16px 4px;
+  }
+
+  .masthead h1 {
+    font-size: 27px;
+  }
+
+  .workspace {
+    padding: 14px 10px 32px;
+    gap: 16px;
+  }
+
+  .panel {
+    padding: 4px 16px 18px;
+  }
+
+  .stage {
+    padding: 24px 0;
+    background-image: none;
+  }
+
+  .mark {
+    display: none;
+  }
+
+  .preview-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  /* Small card — same proportions as the full-size card */
   .id-card {
-      width: 325px;
-      height: 192px;
+    width: 325px;
+    height: 192px;
   }
-  
-  .cardbody {
-      height: 55vh;
-  }
-  
-  
+
   .student-photo {
-      width: 75px;
-      height: 75px;
-      top: 23.1px;
-      left: 18.5px;
+    width: 75px;
+    height: 75px;
+    top: 23.1px;
+    left: 18.5px;
   }
-  
+
   .info {
-      top: 91px;
-      left: 181px;
-      font-size: 12px;
+    top: 91px;
+    left: 181px;
+    font-size: 12px;
   }
 
   .info2 {
-      top: 183px;
-      left: 225px;
-      font-size: 12px;
+    top: 183px;
+    left: 225px;
+    font-size: 12px;
   }
-  
+
   .info3 {
-      top: 102px;
-      left: 5px;
-      font-size: 12px;
+    top: 102px;
+    left: 5px;
+    font-size: 12px;
   }
-  
-  
+
   .info4 {
-      top: 112px;
-      left: 83px;
-      font-size: 15px;
+    top: 112px;
+    left: 83px;
+    font-size: 15px;
   }
-  
-} 
+}
+
+@media screen and (max-width: 400px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
